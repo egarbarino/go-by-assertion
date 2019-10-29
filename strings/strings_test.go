@@ -55,3 +55,9 @@ func Test_String_Convert_Case(t *testing.T) {
 	assert.Equal(t, "HELLO", strings.ToUpper("HellO"))
 	assert.Equal(t, "hello", strings.ToLower("HellO"))
 }
+
+// ## Join (Concat) and Repeat
+func Test_String_Generation(t *testing.T) {
+	assert.Equal(t, "Hello-world", strings.Join([]string{"Hello", "world"}, "-"))
+	assert.Equal(t, "hihihi", strings.Repeat("hi", 3))
+}

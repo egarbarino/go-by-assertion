@@ -286,6 +286,7 @@ func Test_String_Conversion(t *testing.T) {
 	// The string() function converts a Unicode code point!
 	assert.Equal(t, "A", string(65))
 	assert.Equal(t, "😀", string(0X0001F600))
+	assert.Equal(t, "AB", string([]byte{65, 66}))
 	// Integer to String
 	assert.Equal(t, "15", fmt.Sprintf("%d", 15))
 	assert.Equal(t, "15", strconv.Itoa(15))
