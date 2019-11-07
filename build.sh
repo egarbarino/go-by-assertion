@@ -17,16 +17,14 @@ FILES="src/flowcontrol/flowcontrol_test.go \
        src/structs/main/structs_export_test.go \
        src/structs/main/methods_test.go \
        src/structs/main/methods_inner_test.go \
+       src/interfaces/interfaces_test.go \
        src/files/files_test.go \
        src/iostreams/iostreams.go \
        src/iostreams/iostreams_test.go" 
 
-  
-echo "---" > all.md
-echo "title: Go Examples By Unit Testing" >> all.md
-echo "author: Ernesto Garbarino" >> all.md
-echo "date: 2019-11-05" >> all.md
-echo "---" >> all.md
-$CONVERTER -r $GIT_HUB_ROOT $FILES >> all.md
-cp all.md $DST
-# less all.md
+while true;
+do
+cat header.md > $DST 
+$CONVERTER -r $GIT_HUB_ROOT $FILES >> $DST 
+inotifywait -r src header.md
+done
