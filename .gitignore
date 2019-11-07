@@ -1,5 +1,6 @@
 .DS_Store
 push.sh
+pkg
 
 # local env files
 .env.local
