@@ -24,7 +24,7 @@ type contractor struct {
 
 // Step 2: Define an interface as a collection of related methods
 
-type costingInterface interface { // The interface specifies a method
+type costingInterface interface {
 	getYearlyCost() int
 	// getTaxCost
 	// getNetCost
@@ -42,7 +42,6 @@ func (e employee) getYearlyCost() int {
 
 // Step 4: Use the interface as a variable type
 func Test_Interface(t *testing.T) {
-
 	// Use Interface as Variable Type
 	var c1, c2 costingInterface
 	c1 = contractor{"RipOff Ltd", 500}

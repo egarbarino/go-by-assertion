@@ -69,6 +69,7 @@ func file2md(fileName string) string {
 
 	for input.Scan() {
 
+		lineCounter++
 		var line = input.Text()
 		var action = 0
 		switch {
@@ -129,7 +130,6 @@ func file2md(fileName string) string {
 		if IncludeLineFeed == action&IncludeLineFeed {
 			mdString = mdString + "\n"
 		}
-		lineCounter++
 	}
 	if insideCodeBlock {
 		mdString = mdString + "```\n"
