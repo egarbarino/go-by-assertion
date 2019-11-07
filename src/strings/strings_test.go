@@ -1,3 +1,5 @@
+// # Strings
+// Ignore-On
 package strings
 
 import (

@@ -1,3 +1,5 @@
+// # Flow Control
+// Ignore-On
 package flowcontrol
 
 import (
@@ -159,7 +161,7 @@ func Test_Range_Map_Loop(t *testing.T) {
 	assert.Equal(t, "(Argentina)(Brazil)", values)
 }
 
-// Iterate Over the Unicode Characters of a String
+// ## Iterate Over the Unicode Characters of a String
 func Test_Range_String_Loop(t *testing.T) {
 	var word string
 	for _, v := range "😊 olleh" {
@@ -168,7 +170,7 @@ func Test_Range_String_Loop(t *testing.T) {
 	assert.Equal(t, "hello 😊", word)
 }
 
-// Iterate Over The Bytes of a String
+// ## Iterate Over The Bytes of a String
 func Test_For_String_Bytes_Loop(t *testing.T) {
 	var reversedHello = "😊 olleh"
 	var word string
@@ -185,4 +187,31 @@ func Test_Regular_For_Loop(t *testing.T) {
 		counter = counter + i // 0 + 1 + 2 = 3
 	}
 	assert.Equal(t, 3, counter)
+}
+
+// ## Defer
+
+var actions = ""
+
+func addAction(action string) {
+	actions = actions + action
+}
+
+func trackDefer() {
+	addAction("1")
+	defer addAction("[d1]")
+	addAction("2")
+	defer addAction("[d2]")
+	addAction("3")
+	defer addAction("[d3]")
+	addAction("4")
+	if true {
+		return
+	}
+	defer addAction("[d4]")
+	addAction("5")
+}
+func Test_Defer(t *testing.T) {
+	trackDefer()
+	assert.Equal(t, "1234[d3][d2][d1]", actions)
 }

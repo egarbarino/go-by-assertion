@@ -1,3 +1,5 @@
+// # Basic Types
+// Ignore-On
 package basictypes
 
 import (
@@ -11,7 +13,7 @@ import (
 
 // ## Boolean (Bool) and Logical Operators
 func Test_Type_Bool(t *testing.T) {
-	// Declaration
+	// Declaration ⇔
 	var MinBool bool = false
 	var MaxBool bool = true
 	// Logical Operators
@@ -302,7 +304,7 @@ func Test_String_Conversion(t *testing.T) {
 		t.Error("Unable to convert")
 	}
 	if n, err := strconv.Atoi("ex1!%5"); err == nil {
-		t.Error("Conersion was not supposed to be successful", n)
+		t.Error("Conversion was not supposed to be successful", n)
 	} else {
 		assert.NotEqual(t, err, nil)
 	}
@@ -322,4 +324,18 @@ func Test_String_Conversion(t *testing.T) {
 	} else {
 		assert.NotEqual(t, err, nil)
 	}
+}
+
+// ## Constants
+func Test_Constants(t *testing.T) {
+
+	// Constants are immutable
+	const x byte = 5
+	const y = 7
+
+	// n++ // Won't compile
+
+	// Array-like like Slices are mutable and cannot be made constants
+	// const slice = []byte{'a', 'b', 'c'} // Won't compile
+
 }
