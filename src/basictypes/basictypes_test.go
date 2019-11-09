@@ -354,7 +354,7 @@ func Test_String_Conversion(t *testing.T) {
 		t.Error("Unable to convert")
 	}
 	if n, err := strconv.ParseFloat("ex1!%5.67", 32); err == nil {
-		t.Error("Conersion was not supposed to be successful", n)
+		t.Error("Conversion was not supposed to be successful", n)
 	} else {
 		assert.NotEqual(t, err, nil)
 	}

@@ -108,12 +108,12 @@ func file2md(fileName string) string {
 			action = action | IncludeLineFeed
 		}
 		if OpenCodeBlock == action&OpenCodeBlock {
-			_, justFile := filepath.Split(fileName)
-			mdString = mdString + fmt.Sprintf("\n\nSource: [%s](%s%s#L%d) | [Top](#top)\n\n", justFile, srcRoot, fileName, lineCounter)
 			mdString = mdString + "\n``` go\n"
 		}
 		if CloseCodeBlock == action&CloseCodeBlock {
 			mdString = mdString + "```\n"
+			_, justFile := filepath.Split(fileName)
+			mdString = mdString + fmt.Sprintf("\n\nSource: [%s](%s%s#L%d) | [Top](#top)\n\n", justFile, srcRoot, fileName, lineCounter)
 		}
 		if IncludeMarkdown == action&IncludeMarkdown {
 			mdString = mdString + line[3:] + "\n"
@@ -133,6 +133,8 @@ func file2md(fileName string) string {
 	}
 	if insideCodeBlock {
 		mdString = mdString + "```\n"
+		_, justFile := filepath.Split(fileName)
+		mdString = mdString + fmt.Sprintf("\n\nSource: [%s](%s%s#L%d) | [Top](#top)\n\n", justFile, srcRoot, fileName, lineCounter)
 	}
 	return mdString
 }
@@ -149,12 +151,15 @@ func assert2equality(originalLine string) string {
 	commaPosition := -1
 	lastCommaPosition := -1
 	pCounter := 0
-	for inString, i := false, 0; i < len(line); i++ {
+	for inString, inComment, i := false, false, 0; i < len(line); i++ {
 		if i > 0 && line[i] == byte('"') && line[i-1] != byte('\\') {
 			inString = !inString
 		}
+		if i > 2 && line[i-3:i] == "// " {
+			inComment = true
+		}
 
-		if !inString {
+		if !inString && !inComment {
 			if line[i] == byte('(') {
 				pCounter++
 			} else if line[i] == byte(')') {
@@ -167,7 +172,7 @@ func assert2equality(originalLine string) string {
 
 	}
 	if commaPosition == -1 {
-		panic("comma was supposed to be found")
+		return originalLine
 	}
 
 	a := line[0:commaPosition]

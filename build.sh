@@ -1,9 +1,9 @@
 #!/bin/sh
 
 GIT_HUB_ROOT=https://github.com/egarbarino/go-examples/tree/master/
-DST=/mnt/d/GDrive/garba/article/general/go-examples/go-examples.md
+DST=/mnt/d/GDrive/garba/draft/general/go-by-assertion/go-by-assertion.md
 CONVERTER="go run src/main/go2md.go"
-FILES="src/flowcontrol/flowcontrol_test.go \
+FILES="src/controlflow/controlflow_test.go \
        src/functions/functions_test.go \
        src/basictypes/basictypes_test.go \
        src/arrays/arrays_test.go \
@@ -18,6 +18,9 @@ FILES="src/flowcontrol/flowcontrol_test.go \
        src/structs/main/methods_test.go \
        src/structs/main/methods_inner_test.go \
        src/interfaces/interfaces_test.go \
+       src/errors/errors_test.go \
+       src/goroutines/goroutines_test.go \
+       src/goroutines/sync_channels_test.go \
        src/files/files_test.go \
        src/iostreams/iostreams.go \
        src/iostreams/iostreams_test.go" 

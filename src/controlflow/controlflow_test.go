@@ -1,4 +1,4 @@
-// # Flow Control
+// # Control Flow
 // Ignore-On
 package flowcontrol
 
@@ -9,37 +9,71 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-// ## If-Then-Else
+// ## If-Then
+// If statements don't use parenthesis in Go, unlike other C-like languages.
 func Test_If(t *testing.T) {
-	var successCounter = 0
-	var failureCounter = 0
+	var counter = 0
 
 	// Simple If
-	if 2*3 == 6 {
-		successCounter++
-	}
-
-	// If Else
-	if 2*3 == 7 {
-		failureCounter++
-	} else {
-		successCounter++
-	}
-
-	// If Else If
-	if 2*3 == 8 {
-		failureCounter++
-	} else if 2*3 == 7 {
-		failureCounter++
-	} else if 2*3 == 6 {
-		successCounter++
-	} else {
-		failureCounter++
+	if counter == 0 {
+		counter++
 	}
 
 	// Assertions
-	assert.Equal(t, 3, successCounter)
-	assert.Equal(t, 0, failureCounter)
+	assert.Equal(t, 1, counter)
+}
+
+// ## If-Then-Else
+func Test_IfThenElse(t *testing.T) {
+	var counter = 0
+
+	// Simple If
+	if counter == 0 {
+		counter++
+	} else {
+		counter--
+	}
+
+	// Assertions
+	assert.Equal(t, 1, counter)
+}
+
+// ## If-Then-Else If
+func Test_IfThenElseIf(t *testing.T) {
+	var counter = 0
+
+	// Simple If
+	if counter == 0 {
+		counter++
+	} else if counter == 10 {
+		counter = counter * 10
+	} else if counter == 20 {
+		counter = counter * 20
+	} else {
+		counter--
+	}
+
+	// Assertions
+	assert.Equal(t, 1, counter)
+}
+
+// ## If-Scoped Variables
+// An If statement may introduce variables to its scope.
+func Test_If_Scope(t *testing.T) {
+
+	var counter = 0
+
+	// Assign
+	if i := 5; counter == 0 {
+		counter = counter + i // i in scope here
+	} else {
+		counter = counter - i // i in scope here
+	}
+
+	// --- i is not longer in scope here ---
+
+	// Assertions
+	assert.Equal(t, 5, counter)
 }
 
 // ## Switch (Normal)

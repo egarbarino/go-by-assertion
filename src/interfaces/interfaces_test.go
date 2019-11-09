@@ -8,9 +8,9 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-// ## Define an Interface
+// ## Interface Definition
 
-// Step 1: Define a struct type (or primitive alias)
+// **Step 1:** Define a struct type (or primitive alias)
 
 type employee struct {
 	personName string
@@ -22,7 +22,7 @@ type contractor struct {
 	dailyRate      int
 }
 
-// Step 2: Define an interface as a collection of related methods
+// **Step 2:** Define an interface as a collection of related methods
 
 type costingInterface interface {
 	getYearlyCost() int
@@ -30,7 +30,7 @@ type costingInterface interface {
 	// getNetCost
 }
 
-// Step 3: Implement the interface's methods
+// **Step 3:** Implement the interface's methods
 
 func (c contractor) getYearlyCost() int {
 	return c.dailyRate * 5 * 40 // working weeks p/ year
@@ -40,9 +40,9 @@ func (e employee) getYearlyCost() int {
 	return (e.salary * 103) / 100 // Pension contributions 3%
 }
 
-// Step 4: Use the interface as a variable type
+// **Step 4:** Use the interface as a variable type
 func Test_Interface(t *testing.T) {
-	// Use Interface as Variable Type
+	// Use interface as a regular variable Type
 	var c1, c2 costingInterface
 	c1 = contractor{"RipOff Ltd", 500}
 	c2 = employee{"John Smith", 80000}
