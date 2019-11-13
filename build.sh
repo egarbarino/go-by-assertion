@@ -1,33 +1,14 @@
 #!/bin/sh
+# This script consolidates the conversion of go comments to markdown
+# performed by go2md.go into one single markdown file.
 
 GIT_HUB_ROOT=https://github.com/egarbarino/go-examples/tree/master/
 DST=/mnt/d/GDrive/garba/draft/general/go-by-assertion/go-by-assertion.md
 CONVERTER="go run src/main/go2md.go"
-FILES="src/controlflow/controlflow_test.go \
-       src/functions/functions_test.go \
-       src/basictypes/basictypes_test.go \
-       src/arrays/arrays_test.go \
-       src/slices/slices_test.go \
-       src/strings/strings_test.go \
-       src/strings/stringformatting_test.go \
-       src/maps/maps_test.go \
-       src/pointers/pointers_test.go \
-       src/structs/main/structs_test.go \
-       src/structs/main/vendor/model/structs_export.go \
-       src/structs/main/structs_export_test.go \
-       src/structs/main/methods_test.go \
-       src/structs/main/methods_inner_test.go \
-       src/interfaces/interfaces_test.go \
-       src/errors/errors_test.go \
-       src/goroutines/goroutines_test.go \
-       src/goroutines/sync_channels_test.go \
-       src/files/files_test.go \
-       src/iostreams/iostreams.go \
-       src/iostreams/iostreams_test.go" 
-
-while true;
+FILES=$(cat files | tr '\n' ' ')
+while true
 do
-cat header.md > $DST 
-$CONVERTER -r $GIT_HUB_ROOT $FILES >> $DST 
-inotifywait -r src header.md
+  cat header.md > $DST 
+  $CONVERTER -r $GIT_HUB_ROOT $FILES >> $DST 
+  inotifywait -r src header.md
 done
