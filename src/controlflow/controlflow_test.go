@@ -3,6 +3,7 @@
 package flowcontrol
 
 import (
+	"strings"
 	"fmt"
 	"testing"
 
@@ -228,14 +229,16 @@ func Test_Range_Map_Loop(t *testing.T) {
 
 	var keys, values string
 
-	for k, v := range map[string]string{"A": "(Argentina)", "B": "(Brazil)"} {
+	for k, v := range map[string]string{"A": "Argentina", "B": "Brazil"} {
 		keys = keys + k
 		values = values + v
 	}
 
 	// Assertions
-	assert.Equal(t, "AB", keys)
-	assert.Equal(t, "(Argentina)(Brazil)", values)
+	assert.Equal(t, true, strings.Contains(keys,"A"))
+	assert.Equal(t, true, strings.Contains(keys,"B"))
+	assert.Equal(t, true, strings.Contains(values,"Argentina"))
+	assert.Equal(t, true, strings.Contains(values,"Brazil"))
 }
 
 // ## Iterate Over the Unicode Characters of a String
