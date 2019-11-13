@@ -19,7 +19,7 @@ func Test_Error_Interface(t *testing.T) {
 	_, err := os.Open("non-existing-file.txt")
 
 	// Assertions
-	assert.Equal(t, "open non-existing-file.txt: The system cannot find the file specified.", err.Error())
+	assert.Equal(t, "open non-existing-file.txt: no such file or directory", err.Error())
 }
 
 // ## Custom Errors
@@ -50,7 +50,7 @@ func Test_Error_Formatting(t *testing.T) {
 	err2 := fmt.Errorf("Ouch! %s", err)
 
 	// Assertions
-	assert.Equal(t, "Ouch! open non-existing-file.txt: The system cannot find the file specified.", err2.Error())
+	assert.Equal(t, "Ouch! open non-existing-file.txt: no such file or directory", err2.Error())
 }
 
 // ## Custom Error Struct
