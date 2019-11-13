@@ -9,30 +9,35 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-// ## Simple Goroutine Example
-// We first declare a function that creates an artificial pause and that
-// also updates a status slice of bool values to inform that it has
-// completed:
-func wasteTime(sleepSeconds int, status []bool, identifier int) {
-	time.Sleep(time.Duration(sleepSeconds) * time.Second)
-	status[identifier] = true
-}
+// ## Simple Goroutine
+// A goroutine is nothing more than a regular function that is
+// run asynchronously by prefixing it with the `go` keyboard.
+// For example: `go myfunc()`.
 
-// We then call the above function using the prefix `go` which will
-// cause it to run concurrently.
+// In the below example, the `execOrder` strings captures
+// the actual order of execution
 func Test_GoRoutines(t *testing.T) {
-	status := []bool{false, false, false}
+	// This function waits for a number of seconds and then appends
+	// an identifier to the `execOrder` string.
+	wasteTime := func(sleepSeconds int, execOrder *string, id string) {
+		time.Sleep(time.Duration(sleepSeconds) * time.Second)
+		*execOrder = *execOrder + id
+	}
 
-	go wasteTime(3, status, 0)
-	go wasteTime(5, status, 1)
-	go wasteTime(7, status, 2)
+	execOrder := "A"
+
+	go wasteTime(7, &execOrder, "E") // will run last
+	go wasteTime(5, &execOrder, "D") // will run second
+	go wasteTime(3, &execOrder, "C") // will run first
+
+	execOrder = execOrder + "B"
+
+	// Wait 10 seconds to allow all goroutines to run.
+	time.Sleep(time.Duration(10) * time.Second)
+
+	execOrder = execOrder + "F"
 
 	// Assertions
-	assert.Equal(t, []bool{false, false, false}, status) // All sleeping yet
-	time.Sleep(4 * time.Second)                          // Wait 4 seconds
-	assert.Equal(t, []bool{true, false, false}, status)  // wasteTime() 1 ran!
-	time.Sleep(2 * time.Second)                          // Wait 2 seconds
-	assert.Equal(t, []bool{true, true, false}, status)   // wasteTime() 2 ran!
-	time.Sleep(2 * time.Second)                          // Wait 2 seconds
-	assert.Equal(t, []bool{true, true, true}, status)    // wasteTime() 3 ran!
+	assert.Equal(t, "ABCDEF", execOrder)
+
 }

@@ -15,8 +15,8 @@ func Test_Pointer_References(t *testing.T) {
 	var householdMembers string = "Luigi"
 	// &var passes the variable's pointer rather than value
 	marryJazmin(&householdIncome, &householdMembers)
-	assert.Equal(t, 1000, householdIncome)
-	assert.Equal(t, "Luigi & Jazmin", householdIncome)
+	assert.Equal(t, 3000, householdIncome)
+	assert.Equal(t, "Luigi and Jazmin", householdMembers)
 }
 
 func marryJazmin(income *int, members *string) {

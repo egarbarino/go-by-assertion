@@ -12,14 +12,18 @@ import (
 
 // ## Initialisation
 func Test_Init(t *testing.T) {
-
 	var sliceEmpty1 []int
-	var sliceEmpty2 = make([]int, 0, 0)
+	var sliceEmpty2 = make([]int, 0, 0) // length 0, capacity 0
 	var sliceEmpty3 = []int{}
 
-	assert.Equal(t, sliceEmpty1, sliceEmpty2)
-	assert.Equal(t, sliceEmpty2, sliceEmpty3)
+	// Assertions
 	assert.Equal(t, 0, len(sliceEmpty1))
+	assert.Equal(t, 0, len(sliceEmpty2))
+	assert.Equal(t, 0, len(sliceEmpty3))
+
+	assert.Equal(t, []int{5}, append(sliceEmpty1, 5))
+	assert.Equal(t, []int{5}, append(sliceEmpty2, 5))
+	assert.Equal(t, []int{5}, append(sliceEmpty3, 5))
 }
 
 // ## Slice Literals

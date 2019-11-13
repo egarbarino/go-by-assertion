@@ -12,7 +12,7 @@ import (
 // ## Empty Struct Without Fields
 func Test_Structs(t *testing.T) {
 	type Empty struct{}
-	assert.Equal(t, "structs.Empty", fmt.Sprintf("%T", Empty{}))
+	assert.Equal(t, "main.Empty", fmt.Sprintf("%T", Empty{}))
 }
 
 // ## Struct Initialisation
