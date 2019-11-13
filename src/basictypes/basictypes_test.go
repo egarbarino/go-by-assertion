@@ -21,7 +21,7 @@ func Test_Type_Bool(t *testing.T) {
 	assert.Equal(t, false, !true)
 	assert.Equal(t, true, !false)
 	assert.Equal(t, true, true || false)
-	assert.Equal(t, false, MinBool || MaxBool)
+	assert.Equal(t, true, MinBool || MaxBool)
 	assert.Equal(t, false, true && false)
 }
 
