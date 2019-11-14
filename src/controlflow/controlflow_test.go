@@ -11,7 +11,8 @@ import (
 )
 
 // ## If-Then
-// If statements don't use parenthesis in Go, unlike other C-like languages.
+// The syntax is `if EXPR {...}`.
+// _If statements_ don't use parentheses in Go, unlike other C-like languages.
 func Test_If(t *testing.T) {
 	var counter = 0
 
@@ -25,6 +26,7 @@ func Test_If(t *testing.T) {
 }
 
 // ## If-Then-Else
+// The syntax is `if EXPR {...} else {...}`.
 func Test_IfThenElse(t *testing.T) {
 	var counter = 0
 
@@ -40,6 +42,8 @@ func Test_IfThenElse(t *testing.T) {
 }
 
 // ## If-Then-Else If
+// The syntax is `if EXPR {...} else if EXPR {...}`. A final `else {...}`, as
+// in the example below, may also be included.
 func Test_IfThenElseIf(t *testing.T) {
 	var counter = 0
 
@@ -50,7 +54,7 @@ func Test_IfThenElseIf(t *testing.T) {
 		counter = counter * 10
 	} else if counter == 20 {
 		counter = counter * 20
-	} else {
+	} else { // Optional
 		counter--
 	}
 
@@ -59,9 +63,9 @@ func Test_IfThenElseIf(t *testing.T) {
 }
 
 // ## If-Scoped Variables
-// An If statement may introduce variables to its scope.
+// An _if statement_, in the form `if VAR_DECLARATION ; EXPR {...}`, 
+// introduces variables to its scope.
 func Test_If_Scope(t *testing.T) {
-
 	var counter = 0
 
 	// Assign
@@ -77,9 +81,16 @@ func Test_If_Scope(t *testing.T) {
 	assert.Equal(t, 5, counter)
 }
 
-// ## Switch (Normal)
-func Test_Switch_Normal(t *testing.T) {
+// ## Switch 
+// The regular `switch EXPR {...}` statement evaluates an expression `EXPR` and 
+// executes the _first_ case
+// whose value matches the reduction of said expression. Unlike other languages,
+// the cases do not "cascade" and there is no need to terminate them with a `break`
+// statement or similar.  
 
+// The `default` keyword is used to label the case to be selected when all the
+// other ones prefixed with `case` fail to match.
+func Test_Switch_Normal(t *testing.T) {
 	var result = ""
 
 	switch 1 + 1 {
@@ -98,13 +109,14 @@ func Test_Switch_Normal(t *testing.T) {
 }
 
 // ## Switch (Multi-Value Case)
+// The multi-value switch allows to match multiple values within
+// a single case statement.
 func Test_Switch_Multi_Value(t *testing.T) {
-
 	var result = ""
 
 	// Just cases
 	switch 2 * 3 {
-	case 0, 1, 2, 3, 4, 5, 6:
+	case 0, 1, 2, 3, 4, 5, 6: // multiple values!
 		result = "between_zero_and_six"
 	case 7:
 		result = "seven"
@@ -117,8 +129,10 @@ func Test_Switch_Multi_Value(t *testing.T) {
 }
 
 // ## Switch (Expression Cases)
+// This is a type of switch statement in which the cases contain boolean expressions
+// rather then values. The first case whose expression reduces to true 
+// will be executed. 
 func Test_Switch_Expression_Cases(t *testing.T) {
-
 	var result = ""
 
 	switch { // No expression here
@@ -134,7 +148,29 @@ func Test_Switch_Expression_Cases(t *testing.T) {
 	assert.Equal(t, "six", result)
 }
 
+// A more crude example is presented below:
+func Test_Switch_Expression_Cases_2(t *testing.T) {
+	var result = ""
+
+	switch { // No expression here
+	case false:
+		result = "false1"
+	case false:
+		result = "false2"
+	case true:
+		result = "true1"
+	default: // Optional
+	  result = "true2"
+	}
+
+	// Assertions
+	assert.Equal(t, "true1", result)
+}
+
+
 // ## Switch (Type Cases)
+// This type of switch statetment facilitates implementing code based on the different
+// possible types of a given value.  
 func Test_Switch_Type_Cases(t *testing.T) {
 	testType := func(i interface{}) string {
 		switch t := i.(type) { // the t := assignment is optional
@@ -154,6 +190,9 @@ func Test_Switch_Type_Cases(t *testing.T) {
 }
 
 // ## Inifinite Loop (While True Loop)
+// An infinite loop, in the form `for {...}` never terminates 
+// and must be short-circuited explicitly; for
+// example, using `break` as in the example below.
 func Test_While_True_Loop(t *testing.T) {
 
 	var counter = 0
@@ -170,6 +209,8 @@ func Test_While_True_Loop(t *testing.T) {
 }
 
 // ## While Loop
+// A while loop has the form `for EXPR {...}` where the body is executed
+// repeatedly as long as `EXPR` is true. 
 func Test_While_Loop(t *testing.T) {
 
 	var counter = 0
@@ -182,7 +223,9 @@ func Test_While_Loop(t *testing.T) {
 	assert.Equal(t, 3, counter)
 }
 
-// ## Iterate Over Array Elements
+// ## Iteration Over Array Elements
+// This is accomplished by using the `for index, value := range ARRAY {...}` syntax
+// where index is the array index starting from zero.
 func Test_Range_Array_Loop(t *testing.T) {
 
 	var indexSum = 0
@@ -198,7 +241,9 @@ func Test_Range_Array_Loop(t *testing.T) {
 	assert.Equal(t, 6, sum)
 }
 
-// ## Iterate Over Array Elements But Use Only Index
+// ## Iteration Over Array Elements Using Only Index
+// This is like the regular iteration over an array except that the second
+// value is ignored in the assignment: `index := range ARRAY {...}`
 func Test_Range_Array_Loop_Ignore_Index(t *testing.T) {
 
 	var indexSum = 0
@@ -211,9 +256,10 @@ func Test_Range_Array_Loop_Ignore_Index(t *testing.T) {
 	assert.Equal(t, 3, indexSum)
 }
 
-// ## Iterate Over Array Elements But Ignore Index
+// ## Iteration Over Array Elements Ignoring Index
+// In this case, the index value is explictely ignored by using the underscore `_`
+// _blank identifier_ symbol.
 func Test_Range_Array_Loop_Ignore_Index_Blank_Identifier(t *testing.T) {
-
 	var sum = 0
 
 	for _, currentValue := range []int{1, 2, 3} {
@@ -224,9 +270,9 @@ func Test_Range_Array_Loop_Ignore_Index_Blank_Identifier(t *testing.T) {
 	assert.Equal(t, 6, sum)
 }
 
-// ## Iterate Over Keys and Values of a Map
+// ## Iteration Over Keys and Values of a Map
+// This is achieved using the `key, value := range MAP {...}` syntax. 
 func Test_Range_Map_Loop(t *testing.T) {
-
 	var keys, values string
 
 	for k, v := range map[string]string{"A": "Argentina", "B": "Brazil"} {
@@ -241,7 +287,9 @@ func Test_Range_Map_Loop(t *testing.T) {
 	assert.Equal(t, true, strings.Contains(values,"Brazil"))
 }
 
-// ## Iterate Over the Unicode Characters of a String
+// ## Iteration Over the Unicode Characters of a String
+// By prexifing an string with `range`, the `for` loop will iterate through the
+// string's unicode characters as opposed to its raw bytes.
 func Test_Range_String_Loop(t *testing.T) {
 	var word string
 
@@ -253,7 +301,8 @@ func Test_Range_String_Loop(t *testing.T) {
 	assert.Equal(t, "hello 😊", word)
 }
 
-// ## Iterate Over The Bytes of a String
+// ## Iteration Over The Bytes of a String
+// This is like iterating over an array in a regular C-like language.
 func Test_For_String_Bytes_Loop(t *testing.T) {
 
 	var reversedHello = "😊 olleh"
@@ -268,6 +317,9 @@ func Test_For_String_Bytes_Loop(t *testing.T) {
 }
 
 // ## Regular Foor Loop
+// The regular for loop is exactly the same as that found in C-like 
+// languages except that no parentheses are used and that the 
+// variable(s) are initialised with `:=` rather than `=`.
 func Test_Regular_For_Loop(t *testing.T) {
 
 	var counter = 0
@@ -281,30 +333,31 @@ func Test_Regular_For_Loop(t *testing.T) {
 }
 
 // ## Defer
-
-var actions = ""
-
-func addAction(action string) {
-	actions = actions + action
-}
-
-func trackDefer() {
-	addAction("1")
-	defer addAction("[d1]")
-	addAction("2")
-	defer addAction("[d2]")
-	addAction("3")
-	defer addAction("[d3]")
-	addAction("4")
-	if true {
-		return
-	}
-	defer addAction("[d4]")
-	addAction("5")
-}
+// The `defer STATEMENT` syntax is used to enforce the execution of the
+// statement `STATEMENT` 
+// before the function under which the declaration appears is exited.
+// The execution order is that of a stack: last in, first out (LIFO).
 func Test_Defer(t *testing.T) {
+	var actions = ""
+
+	addAction := func(action string) {
+		actions = actions + action
+	}
+
+	trackDefer := func() {
+		addAction("1")
+		defer addAction("[d1]")
+		addAction("2")
+		defer addAction("[d2]")
+		addAction("3")
+		defer addAction("[d3]")
+		addAction("4")
+	}
+
+	actions = actions + "START-"
 	trackDefer()
+	actions = actions + "-END"
 
 	// Assertions
-	assert.Equal(t, "1234[d3][d2][d1]", actions)
+	assert.Equal(t, "START-1234[d3][d2][d1]-END", actions)
 }
