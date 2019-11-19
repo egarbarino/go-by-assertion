@@ -3,8 +3,8 @@
 package flowcontrol
 
 import (
-	"strings"
 	"fmt"
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -63,7 +63,7 @@ func Test_IfThenElseIf(t *testing.T) {
 }
 
 // ## If-Scoped Variables
-// An _if statement_, in the form `if VAR_DECLARATION ; EXPR {...}`, 
+// An _if statement_, in the form `if VAR_DECLARATION ; EXPR {...}`,
 // introduces variables to its scope.
 func Test_If_Scope(t *testing.T) {
 	var counter = 0
@@ -81,12 +81,12 @@ func Test_If_Scope(t *testing.T) {
 	assert.Equal(t, 5, counter)
 }
 
-// ## Switch 
-// The regular `switch EXPR {...}` statement evaluates an expression `EXPR` and 
+// ## Switch
+// The regular `switch EXPR {...}` statement evaluates an expression `EXPR` and
 // executes the _first_ case
 // whose value matches the reduction of said expression. Unlike other languages,
 // the cases do not "cascade" and there is no need to terminate them with a `break`
-// statement or similar.  
+// statement or similar.
 
 // The `default` keyword is used to label the case to be selected when all the
 // other ones prefixed with `case` fail to match.
@@ -130,8 +130,8 @@ func Test_Switch_Multi_Value(t *testing.T) {
 
 // ## Switch (Expression Cases)
 // This is a type of switch statement in which the cases contain boolean expressions
-// rather then values. The first case whose expression reduces to true 
-// will be executed. 
+// rather then values. The first case whose expression reduces to true
+// will be executed.
 func Test_Switch_Expression_Cases(t *testing.T) {
 	var result = ""
 
@@ -160,17 +160,16 @@ func Test_Switch_Expression_Cases_2(t *testing.T) {
 	case true:
 		result = "true1"
 	default: // Optional
-	  result = "true2"
+		result = "true2"
 	}
 
 	// Assertions
 	assert.Equal(t, "true1", result)
 }
 
-
 // ## Switch (Type Cases)
-// This type of switch statetment facilitates implementing code based on the different
-// possible types of a given value.  
+// This type of switch statement facilitates implementing code based on the different
+// possible types of a given value.
 func Test_Switch_Type_Cases(t *testing.T) {
 	testType := func(i interface{}) string {
 		switch t := i.(type) { // the t := assignment is optional
@@ -189,8 +188,8 @@ func Test_Switch_Type_Cases(t *testing.T) {
 	assert.Equal(t, "other type: float64", testType(1.53))
 }
 
-// ## Inifinite Loop (While True Loop)
-// An infinite loop, in the form `for {...}` never terminates 
+// ## Infinite Loop (While True Loop)
+// An infinite loop, in the form `for {...}` never terminates
 // and must be short-circuited explicitly; for
 // example, using `break` as in the example below.
 func Test_While_True_Loop(t *testing.T) {
@@ -210,7 +209,7 @@ func Test_While_True_Loop(t *testing.T) {
 
 // ## While Loop
 // A while loop has the form `for EXPR {...}` where the body is executed
-// repeatedly as long as `EXPR` is true. 
+// repeatedly as long as `EXPR` is true.
 func Test_While_Loop(t *testing.T) {
 
 	var counter = 0
@@ -231,7 +230,7 @@ func Test_Range_Array_Loop(t *testing.T) {
 	var indexSum = 0
 	var sum = 0
 
-	for index, currentValue := range []int{1, 2, 3} {
+	for index, currentValue := range [3]int{1, 2, 3} {
 		indexSum = indexSum + index // 0 + 1 + 2 = 3
 		sum = sum + currentValue    // 1 + 2 + 3 = 6
 	}
@@ -246,23 +245,24 @@ func Test_Range_Array_Loop(t *testing.T) {
 // value is ignored in the assignment: `index := range ARRAY {...}`
 func Test_Range_Array_Loop_Ignore_Index(t *testing.T) {
 
-	var indexSum = 0
+	var sum = 0
+	var numbers = [3]int{1, 2, 3}
 
-	for index := range []int{50, 999, 300} {
-		indexSum = indexSum + index // 0 + 1 + 2 = 3
+	for index := range numbers {
+		sum = sum + numbers[index] // array elements accessed by index!
 	}
 
 	// Assertions
-	assert.Equal(t, 3, indexSum)
+	assert.Equal(t, 6, sum)
 }
 
 // ## Iteration Over Array Elements Ignoring Index
-// In this case, the index value is explictely ignored by using the underscore `_`
+// In this case, the index value is explicitly ignored by using the underscore `_`
 // _blank identifier_ symbol.
 func Test_Range_Array_Loop_Ignore_Index_Blank_Identifier(t *testing.T) {
 	var sum = 0
 
-	for _, currentValue := range []int{1, 2, 3} {
+	for _, currentValue := range [3]int{1, 2, 3} {
 		sum = sum + currentValue // 1 + 2 + 3 = 6
 	}
 
@@ -271,7 +271,7 @@ func Test_Range_Array_Loop_Ignore_Index_Blank_Identifier(t *testing.T) {
 }
 
 // ## Iteration Over Keys and Values of a Map
-// This is achieved using the `key, value := range MAP {...}` syntax. 
+// This is achieved using the `key, value := range MAP {...}` syntax.
 func Test_Range_Map_Loop(t *testing.T) {
 	var keys, values string
 
@@ -281,15 +281,15 @@ func Test_Range_Map_Loop(t *testing.T) {
 	}
 
 	// Assertions
-	assert.Equal(t, true, strings.Contains(keys,"A"))
-	assert.Equal(t, true, strings.Contains(keys,"B"))
-	assert.Equal(t, true, strings.Contains(values,"Argentina"))
-	assert.Equal(t, true, strings.Contains(values,"Brazil"))
+	assert.Equal(t, true, strings.Contains(keys, "A"))
+	assert.Equal(t, true, strings.Contains(keys, "B"))
+	assert.Equal(t, true, strings.Contains(values, "Argentina"))
+	assert.Equal(t, true, strings.Contains(values, "Brazil"))
 }
 
 // ## Iteration Over the Unicode Characters of a String
-// By prexifing an string with `range`, the `for` loop will iterate through the
-// string's unicode characters as opposed to its raw bytes.
+// By prefixing an string with `range`, the `for` loop will iterate through the
+// string's Unicode characters as opposed to its raw bytes.
 func Test_Range_String_Loop(t *testing.T) {
 	var word string
 
@@ -316,9 +316,9 @@ func Test_For_String_Bytes_Loop(t *testing.T) {
 	assert.Equal(t, "hello \u008a\u0098\u009fð", word)
 }
 
-// ## Regular Foor Loop
-// The regular for loop is exactly the same as that found in C-like 
-// languages except that no parentheses are used and that the 
+// ## Regular For Loop
+// The regular for loop is exactly the same as that found in C-like
+// languages except that no parentheses are used and that the
 // variable(s) are initialised with `:=` rather than `=`.
 func Test_Regular_For_Loop(t *testing.T) {
 
@@ -334,7 +334,7 @@ func Test_Regular_For_Loop(t *testing.T) {
 
 // ## Defer
 // The `defer STATEMENT` syntax is used to enforce the execution of the
-// statement `STATEMENT` 
+// statement `STATEMENT`
 // before the function under which the declaration appears is exited.
 // The execution order is that of a stack: last in, first out (LIFO).
 func Test_Defer(t *testing.T) {

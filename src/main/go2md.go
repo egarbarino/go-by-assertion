@@ -83,7 +83,7 @@ func file2md(fileName string) string {
 			if insideCodeBlock {
 				action = action | CloseCodeBlock
 			}
-		case strings.HasPrefix(line, "// "):
+		case strings.HasPrefix(line, "//"):
 			ignoring = false
 			action = action | IncludeMarkdown
 			if insideCodeBlock {
@@ -116,7 +116,11 @@ func file2md(fileName string) string {
 			mdString = mdString + fmt.Sprintf("\n\nSource: [%s](%s%s#L%d) | [Top](#top)\n\n", justFile, srcRoot, fileName, lineCounter)
 		}
 		if IncludeMarkdown == action&IncludeMarkdown {
-			mdString = mdString + line[3:] + "\n"
+			if strings.HasPrefix(line, "// ") {
+				mdString = mdString + line[3:] + "\n"
+			} else if line == "//" {
+				mdString = mdString + "\n"
+			}
 		}
 		if IncludeNormalLine == action&IncludeNormalLine {
 			mdString = mdString + line + "\n"

@@ -12,6 +12,8 @@ import (
 )
 
 // ## Boolean (Bool) and Logical Operators
+// Boolean types are built-in and work with the typical logic operators such
+// as AND (`&&`), OR (`||`), Negation (`!`), etc.
 func Test_Type_Bool(t *testing.T) {
 	// Declaration
 	var MinBool bool = false
@@ -25,7 +27,11 @@ func Test_Type_Bool(t *testing.T) {
 	assert.Equal(t, false, true && false)
 }
 
-// ## Signed Integer 8
+// ## Signed Integers
+// Signed integers can accommodate negative numbers (and applicable arithmetic)
+// but the trade off is losing one bit and therefore, half the capacity.
+//
+// ### 8-Bit
 func Test_Type_Int8(t *testing.T) {
 	// Declaration
 	var MinInt8 int8 = -128
@@ -36,7 +42,7 @@ func Test_Type_Int8(t *testing.T) {
 	assert.Equal(t, true, MaxInt8 == math.MaxInt8)
 }
 
-// ## Signed Integer 16
+// ### 16-Bit
 func Test_Type_Int16(t *testing.T) {
 
 	// Declaration
@@ -48,7 +54,7 @@ func Test_Type_Int16(t *testing.T) {
 	assert.Equal(t, true, MaxInt16 == math.MaxInt16)
 }
 
-// ## Signed Integer 32 (Rune)
+// ### 32-Bit (Rune)
 func Test_Type_Int32(t *testing.T) {
 	// Declaration
 	var MinInt32 rune = -2147483648
@@ -67,7 +73,7 @@ func Test_Type_Int32(t *testing.T) {
 	assert.Equal(t, MinRune, MaxInt32+1)
 }
 
-// ## Signed Integer 64
+// ### 64-Bit
 func Test_Type_Int64(t *testing.T) {
 	// Declaration
 	var MinInt64 int64 = -9223372036854775808
@@ -78,7 +84,8 @@ func Test_Type_Int64(t *testing.T) {
 	assert.Equal(t, true, MaxInt64 == math.MaxInt64)
 }
 
-// ## Signed Integer (Implementation-Specific Size: 32 or 64)
+// ### General Integer
+// The size depends on the underlying architecture.
 func Test_Type_Int(t *testing.T) {
 	// Only on 64-bit architectures
 	var MinInt int = -9223372036854775808
@@ -93,7 +100,11 @@ func Test_Type_Int(t *testing.T) {
 	assert.Equal(t, MinInt, MaxInt+1)
 }
 
-// ## Unsigned Integer 8 (Byte)
+// ## Unsigned Integers
+// Unsigned integers only store positive numbers (including zero) and offer
+// larger capacity thanks to not having to use the sign bit.
+//
+// ### 8-Bit (Byte)
 func Test_Type_UInt8(t *testing.T) {
 	// Declaration
 	var MinUInt8 uint8 = 0
@@ -113,7 +124,7 @@ func Test_Type_UInt8(t *testing.T) {
 	assert.Equal(t, MinByte, MaxUInt8+1)
 }
 
-// ## Unsigned Integer 16
+// ### 16-Bit
 func Test_Type_UInt16(t *testing.T) {
 	// Decaration
 	var MinUInt16 uint16 = 0
@@ -127,7 +138,7 @@ func Test_Type_UInt16(t *testing.T) {
 	assert.Equal(t, MinUInt16, MaxUInt16+1)
 }
 
-// ## Unsigned Integer 32
+// ### 32-Bit
 func Test_Type_UInt32(t *testing.T) {
 	// Declaration
 	var MinUInt32 uint32 = 0
@@ -141,7 +152,7 @@ func Test_Type_UInt32(t *testing.T) {
 	assert.Equal(t, MinUInt32, MaxUInt32+1)
 }
 
-// ## Unsigned Integer 64
+// ### 64-Bit
 func Test_Type_UInt64(t *testing.T) {
 	// Declaration
 	var MinUInt64 uint64 = 0
@@ -155,7 +166,8 @@ func Test_Type_UInt64(t *testing.T) {
 	assert.Equal(t, MinUInt64, MaxUInt64+1)
 }
 
-// ## Unsigned Integer (Implementation Specific Size: 32 or 64)
+// ### General Unsigned Integer
+// Size is implementation-specific (either 32-bit or 64-bit)
 func Test_Type_UInteger(t *testing.T) {
 	// Declaration
 	var MinUint uint = 0
@@ -169,7 +181,8 @@ func Test_Type_UInteger(t *testing.T) {
 	assert.Equal(t, MinUint, MaxUint+1)
 }
 
-// ## Unsigned Integer Pointer (Implementation Specific Size: 32 or 64)
+// ### Unsigned Integer Pointer
+// Size is implementation-specific (either 32-bit or 64-bit)
 func Test_Type_UIntegerPointer(t *testing.T) {
 	// Declaration
 	var MinUintptr uintptr = 0
@@ -183,7 +196,10 @@ func Test_Type_UIntegerPointer(t *testing.T) {
 	assert.Equal(t, MinUintptr, MaxUintptr+1)
 }
 
-// ## Float 32
+// ## Float
+// The float type allows for a decimal component.
+//
+// ### 32-Bit
 func Test_Type_Float32(t *testing.T) {
 	// Declaration
 	var MinFloat32 float32 = -1.401298464324817e-45
@@ -194,7 +210,7 @@ func Test_Type_Float32(t *testing.T) {
 	assert.Equal(t, true, MaxFloat32 == math.MaxFloat32)
 }
 
-// ## Float 64
+// ### 64-Bit
 func Test_Type_Float64(t *testing.T) {
 	// Declaration
 	var MinFloat64 float64 = -5e-324
@@ -205,14 +221,17 @@ func Test_Type_Float64(t *testing.T) {
 	assert.Equal(t, true, MaxFloat64 == math.MaxFloat64)
 }
 
-// ## Complex64
+// ## Complex
+// A type for Complex numbers.
+//
+// ### 64-Bit
 func Test_Type_Complex64(t *testing.T) {
 	// Declaration and Bounds
 	assert.Equal(t, complex(1.401298464324817e-45, 1.401298464324817e-45), complex(math.SmallestNonzeroFloat32, math.SmallestNonzeroFloat32))
 	assert.Equal(t, complex(3.4028234663852886e+38, 3.4028234663852886e+38), complex(math.MaxFloat32, math.MaxFloat32))
 }
 
-// ## Complex 128
+// ### 128-Bit
 func Test_Type_Complex128(t *testing.T) {
 	// Declaration and Bounds
 	assert.Equal(t, complex(5e-324, 5e-324), complex(math.SmallestNonzeroFloat64, math.SmallestNonzeroFloat64))
@@ -220,6 +239,8 @@ func Test_Type_Complex128(t *testing.T) {
 }
 
 // ## Number Literals
+// Number literals may be expressed using a variety of notations
+// (decimal, scientific, etc.) and bases (binary, octal, hex, etc.)
 func Test_Number_Literal(t *testing.T) {
 	// Assertions
 	assert.Equal(t, 255, 0xFF)              // Hex
@@ -241,6 +262,9 @@ func Test_Number_Literal(t *testing.T) {
 }
 
 // ## Number Arithmetic Operators
+// Arithmetic operators are overloaded for every underlying type. For
+// example, the division operator `/` produces an integer result when
+// the operands are integers, but a float one when they are float.
 func Test_Number_Operators(t *testing.T) {
 	// Assertions
 	assert.Equal(t, 5, 3+2)                                 // Sum
@@ -261,10 +285,16 @@ func Test_Number_Operators(t *testing.T) {
 }
 
 // ## Number Type Conversion
+// As expected, conversion from a smaller type to a larger one is
+// value-preserving. The noteworthy thing is that conversion from a larger
+// type to a small one results in truncation to zero whenever the value
+// is too long to fit.
 func Test_Number_Type_Conversion(t *testing.T) {
 	// Upcasting (Value-Preserving)
 	var smallValue byte = 5
 	var smallNegValue int8 = -5
+
+	// Assertions
 	assert.Equal(t, true, 9000+uint(smallValue) == 9005)
 	assert.Equal(t, true, 9000+int(smallNegValue) == 8995)
 	assert.Equal(t, true, 9000+uint16(smallValue) == 9005)
@@ -274,7 +304,7 @@ func Test_Number_Type_Conversion(t *testing.T) {
 	assert.Equal(t, true, 9000000000000000000+uint64(smallValue) == 9000000000000000005)
 	assert.Equal(t, true, 9000000000000000000+int64(smallNegValue) == 8999999999999999995)
 
-	// Downcasting (Value-Destructive)
+	// Down-casting (Value-Destructive)
 	var bigValue uint64 = 18446744073709551615    // 2^64
 	var bigNegValue int64 = -9223372036854775808  // 2^63
 	var bigNegValue2 int64 = -4611686018427387904 // 2^62
@@ -294,6 +324,8 @@ func Test_Number_Type_Conversion(t *testing.T) {
 }
 
 // ## Rune Literals
+// Rune (Unicode) literals may be expressed using decimals, octal numbers,
+// hexadecimal ones, escape codes, as well as official Unicode code points.
 func Test_Rune_Literals(t *testing.T) {
 	// Assertions
 	assert.Equal(t, 'A', rune(65))     // Rune value
@@ -314,6 +346,8 @@ func Test_Rune_Literals(t *testing.T) {
 }
 
 // ## String Conversion
+// String conversion is more explicit in Go than in other languages;
+// different techniques are required depending on the underlying type.
 func Test_String_Conversion(t *testing.T) {
 	// The string() function converts a Unicode code point!
 	assert.Equal(t, "A", string(65))
@@ -361,6 +395,7 @@ func Test_String_Conversion(t *testing.T) {
 }
 
 // ## Constants
+// Constants are prefixed with the `const` keyword.
 func Test_Constants(t *testing.T) {
 
 	// Constants are immutable

@@ -1,3 +1,3 @@
-# Go by Example
+# Go by Assertion 
 
 Note: Work in progress
