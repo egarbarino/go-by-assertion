@@ -58,7 +58,7 @@ func file2md(fileName string) string {
 	insideCodeBlock := false
 	insideTestBlock := false
 	ignoring := false
-	lineCounter := 0
+	lineCounter, lastSourceLine := 0, 0
 
 	const OpenCodeBlock = 0b10
 	const CloseCodeBlock = 0b100
@@ -109,6 +109,7 @@ func file2md(fileName string) string {
 		}
 		if OpenCodeBlock == action&OpenCodeBlock {
 			mdString = mdString + "\n``` go\n"
+			lastSourceLine = lineCounter
 		}
 		if CloseCodeBlock == action&CloseCodeBlock {
 			mdString = mdString + "```\n"
@@ -138,7 +139,7 @@ func file2md(fileName string) string {
 	if insideCodeBlock {
 		mdString = mdString + "```\n"
 		_, justFile := filepath.Split(fileName)
-		mdString = mdString + fmt.Sprintf("\n\nSource: [%s](%s%s#L%d) | [Top](#top)\n\n", justFile, srcRoot, fileName, lineCounter)
+		mdString = mdString + fmt.Sprintf("\n\nSource: [%s](%s%s#L%d) | [Top](#top)\n\n", justFile, srcRoot, fileName, lastSourceLine)
 	}
 	return mdString
 }

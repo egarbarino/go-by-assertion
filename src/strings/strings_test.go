@@ -77,7 +77,7 @@ func Test_String_Replace(t *testing.T) {
 	assert.Equal(t, "hello 😊:)", strings.Replace("hello :):)", ":)", "😊", 1))
 }
 
-// ## Convert Case (Title, Upper, Lower)
+// ## Case Conversion (Title, Upper, Lower)
 // The `Title()`, `ToUpper()`, and `ToLower()` functions
 // from the `strings` package change a string's case.
 func Test_String_Convert_Case(t *testing.T) {

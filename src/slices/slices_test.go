@@ -166,7 +166,7 @@ func Test_Copy(t *testing.T) {
 }
 
 // ## Subsets (Slices, Splits, Trims)
-// Various ways to obtain a subset of a slice; using
+// There are various ways to obtain a subset of a slice; using
 // the slice notation as well as helper functions.
 func Test_Slice_Subsets(t *testing.T) {
 	// Assertions (Slice Notation)

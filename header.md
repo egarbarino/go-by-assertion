@@ -1,7 +1,7 @@
 ---
 title: Go By Assertion
 author: Ernesto Garbarino
-date: 2019-11-14
+date: 2019-11-26
 abstract: A Go reference using unit testing assertions as opposed to print statements. 
 image: go-by-assertion.png
 ---
@@ -17,6 +17,6 @@ For convenience, the assertions are stylised as follows:
 * `assert.Equal(t, a, b)` becomes `a ⇔ b`
 * `assert.NotEqual(t, a, b)` becomes `a ⇎ b` 
 
-All source code snippets are linked to original files on GitHub at [https://github.com/egarbarino/go-examples/](https://github.com/egarbarino/go-examples/)
+All source code snippets are linked to original files on GitHub at [https://github.com/egarbarino/go-by-assertion/](https://github.com/egarbarino/go-by-assertion/)
 
 

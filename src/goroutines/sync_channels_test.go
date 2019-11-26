@@ -291,7 +291,7 @@ func Test_Channel19(t *testing.T) {
 
 // ## Scheduled Tasks (Timers)
 // A timer, created via `timer.NewTimer(Time)` offers a mechanism to
-// the running of goroutines in the future. The implementation, as appreciated
+// run goroutines in the future. The implementation, as appreciated
 // below, relies on a blocking channel that forces the goroutine to wait
 // until the specified time (5 seconds).
 func Test_Channel25(t *testing.T) {
@@ -321,7 +321,7 @@ func Test_Channel25(t *testing.T) {
 // ## Scheduled Tasks (Cancelling Timers)
 // A timer may be aborted by invoking `timer.Stop()`, preventing the
 //  waiting goroutine from executing
-// the code after the the channel receive statement.
+// the code after the channel _receive_ statement.
 func Test_Channel30(t *testing.T) {
 	execOrder := "A"
 

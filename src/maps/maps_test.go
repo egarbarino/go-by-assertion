@@ -110,6 +110,7 @@ func Test_Map_Membership(t *testing.T) {
 }
 
 // ## Getting All Keys and Values
+// This is achived via iteration.
 func Test_Map_Get_All(t *testing.T) {
 	var datesOfBirth = map[string]int{
 		"Newton":   1643,
