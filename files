@@ -4,14 +4,10 @@ src/basictypes/basictypes_test.go
 src/arrays/arrays_test.go
 src/slices/slices_test.go
 src/strings/strings_test.go
-src/strings/stringformatting_test.go
 src/maps/maps_test.go
 src/pointers/pointers_test.go
-src/structs/main/structs_test.go
-src/structs/main/vendor/model/structs_export.go
-src/structs/main/structs_export_test.go
-src/structs/main/methods_test.go
-src/structs/main/methods_inner_test.go
+src/structs/structs_test.go
+src/methods/methods_test.go
 src/interfaces/interfaces_test.go
 src/errors/errors_test.go
 src/goroutines/goroutines_test.go
@@ -19,3 +15,4 @@ src/goroutines/sync_channels_test.go
 src/files/files_test.go
 src/iostreams/iostreams.go
 src/iostreams/iostreams_test.go
+src/arguments/arguments_test.go

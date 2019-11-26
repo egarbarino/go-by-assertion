@@ -243,7 +243,7 @@ func Test_Channel15(t *testing.T) {
 }
 
 // ## Opening and Closing Channels
-// Channels are open by default when created. They can be explicitly closed
+// Channels are open by default when created. They can explicitly be closed
 // using the `close(channel)` statement.
 // The status of a channel may be checked using the second return value
 // of the message receive statement: `msg, channelStatus <- channel`.

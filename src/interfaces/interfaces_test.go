@@ -1,6 +1,9 @@
 // # Interfaces
+// Interfaces are a collection of method signatures that a type
+// may implement.
+//
 // Ignore-On
-package main
+package interfaces
 
 import (
 	"testing"
@@ -9,8 +12,19 @@ import (
 )
 
 // ## Interface Definition
-
-// **Step 1:** Define a struct type (or primitive alias)
+// An interface is defined using the below notation:
+//
+// ```
+// type <NAME> interface {
+//   <METHOD1>
+//   <METHOD2>
+//   ...
+// }
+// ```
+//
+// In the below example, we create two types; `employee` and `contractor`, then declare
+// an interface called `costing`, and finally implement said interface for both of
+// the types.
 
 type employee struct {
 	personName string
@@ -22,25 +36,19 @@ type contractor struct {
 	dailyRate      int
 }
 
-// **Step 2:** Define an interface as a collection of related methods
-
-type costingInterface interface {
+type costingInterface interface { // Define interface (IF)!
 	getYearlyCost() int
-	// getTaxCost
-	// getNetCost
+	// ... other methods here.
 }
 
-// **Step 3:** Implement the interface's methods
-
-func (c contractor) getYearlyCost() int {
-	return c.dailyRate * 5 * 40 // working weeks p/ year
-}
-
-func (e employee) getYearlyCost() int {
+func (e employee) getYearlyCost() int { // Implement IF for employee
 	return (e.salary * 103) / 100 // Pension contributions 3%
 }
 
-// **Step 4:** Use the interface as a variable type
+func (c contractor) getYearlyCost() int { // Implement IF for contractor
+	return c.dailyRate * 5 * 40 // working weeks p/ year
+}
+
 func Test_Interface(t *testing.T) {
 	// Use interface as a regular variable Type
 	var c1, c2 costingInterface
@@ -50,4 +58,33 @@ func Test_Interface(t *testing.T) {
 	// Assertions
 	assert.Equal(t, 100000, c1.getYearlyCost())
 	assert.Equal(t, 82400, c2.getYearlyCost())
+}
+
+// ## The Empty Interface
+// The empty interface specifies zero methods and may hold
+// values of any type.
+
+func Test_Interface_2(t *testing.T) {
+	// v can be any value type!
+	tellMeYourType := func(v interface{}) string {
+		switch v.(type) {
+		case string:
+			return "string"
+		case int:
+			return "int"
+		default:
+			return "other"
+		}
+	}
+
+	// All value types are compatible with interface{}!
+	var v1, v2, v3 interface{}
+	v1 = "hello"
+	v2 = 45
+	v3 = 1.5
+
+	// Assertions
+	assert.Equal(t, "string", tellMeYourType(v1))
+	assert.Equal(t, "int", tellMeYourType(v2))
+	assert.Equal(t, "other", tellMeYourType(v3))
 }

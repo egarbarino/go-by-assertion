@@ -1,4 +1,12 @@
 // # Basic Types
+// Basic types are also known as atomic types;
+// they are those that cannot be broken up into
+// smaller components such as integers, floats, etc.
+// However, we also include string conversion to and
+// from primitive types. Likewise, we also include
+// the most typical built-in operators applicable
+// to the basic type at hand.
+//
 // Ignore-On
 package basictypes
 

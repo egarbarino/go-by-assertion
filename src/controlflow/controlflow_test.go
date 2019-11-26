@@ -1,4 +1,10 @@
 // # Control Flow
+// Go, being an imperative language, offers a number
+// of control flow statements, although relative small
+// compared to other languages. For example, all forms
+// of looping rely on the `for` keyword rather than
+// `while`, `foreach`, etc.
+//
 // Ignore-On
 package flowcontrol
 
@@ -168,8 +174,8 @@ func Test_Switch_Expression_Cases_2(t *testing.T) {
 }
 
 // ## Switch (Type Cases)
-// This type of switch statement facilitates implementing code based on the different
-// possible types of a given value.
+// A switch statement in which the cases represent the types
+// that a value may possess.
 func Test_Switch_Type_Cases(t *testing.T) {
 	testType := func(i interface{}) string {
 		switch t := i.(type) { // the t := assignment is optional

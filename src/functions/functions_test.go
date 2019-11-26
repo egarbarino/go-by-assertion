@@ -1,4 +1,8 @@
 // # Functions
+// Go functions are actually "procedures" rather than pure functions
+// like in a FP language such as Haskell. It means that they are not
+// necessarily idempotent; they may have side effects.
+//
 // Ignore-On
 package functions
 
@@ -12,9 +16,6 @@ import (
 // Ignore-Off
 // ## Simple Function
 // A simple function neither takes nor returns values.
-// Go functions are actually "procedures" rather than pure functions
-// like in a FP language such as Haskell. It means that they are not
-// necessarily idempotent; they may have side effects.
 var globalVar = ""
 
 func simple() {
